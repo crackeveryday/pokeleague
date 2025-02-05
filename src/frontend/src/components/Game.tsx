@@ -17,7 +17,7 @@ const Game: React.FC = () => {
       startTime: data.start_time,
       isGameActive: true,
       answers: [],
-      timeRemaining: 30
+      timeRemaining: 60
     });
     setIsGameOver(false);
     setMessage('');
@@ -58,7 +58,7 @@ const Game: React.FC = () => {
         <>
           <h2>技「{gameState.moveName}」を覚えるポケモンを5匹答えよ！</h2>
           <Timer 
-            initialTime={30} 
+            initialTime={60} 
             onTimeout={handleTimeout} 
             isActive={gameState.isGameActive && !isGameOver} 
           />
