@@ -22,7 +22,7 @@ class Game:
             return "clear"
         
         time_elapsed = (datetime.now() - self.start_time).seconds
-        if time_elapsed > 30:
+        if time_elapsed > 60:
             self.is_finished = True
             return "timeout"
             
