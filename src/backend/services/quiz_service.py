@@ -1,8 +1,8 @@
 import random
 from models.game import Game
 from services.pokemon_service import PokemonService
-from backend.services.pokemon_name_converter import PokemonNameConverter
-from backend.services.move_name_converter import MoveNameConverter
+from services.pokemon_name_converter import PokemonNameConverter
+from services.move_name_converter import MoveNameConverter
 
 class QuizService:
     def __init__(self):
