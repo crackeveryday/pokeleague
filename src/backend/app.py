@@ -24,4 +24,4 @@ def submit_answer(game_id):  # game_idを引数として追加
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='backend', port=5000, debug=False)
