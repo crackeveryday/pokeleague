@@ -26,7 +26,7 @@ class QuizService:
             if self.name_converter.get_japanese_name(name)
         ]
         
-        game = Game(move_name_en, correct_answers)
+        game = Game(move_name_ja, correct_answers)
         self.active_games[game.id] = game
         return game
 
