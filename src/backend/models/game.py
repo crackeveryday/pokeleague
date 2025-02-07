@@ -7,12 +7,15 @@ class Game:
         self.move_name = move_name
         self.correct_answers = correct_answers
         self.user_answers = []
+        self.images = {}
         self.start_time = datetime.now()
         self.is_finished = False
 
-    def add_answer(self, pokemon_name):
+    def add_answer(self, pokemon_name, image_url):
         if not self.is_finished and pokemon_name in self.correct_answers and pokemon_name not in self.user_answers:
             self.user_answers.append(pokemon_name)
+            if image_url:
+                self.images[pokemon_name] = image_url
             return True
         return False
 
