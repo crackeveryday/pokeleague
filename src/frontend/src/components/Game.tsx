@@ -75,21 +75,22 @@ const Game: React.FC = () => {
           />
           <div className="answers-list">
             <h3>正解したポケモン ({gameState.answers.length}/5):</h3>
-            <ul>
+            <div className="pokemon-grid">
                 {gameState.answers.map((answer, index) => (
-                    <li key={index}>
-                        {answer.name}
+                    <div key={index} className="pokemon-card">
                         {answer.image && (
                             <img 
                                 src={answer.image} 
                                 alt={answer.name}
-                                style={{ width: '96px', height: '96px' }}
+                                className="pokemon-image"
                             />
                         )}
-                    </li>
+                        <span className="pokemon-name">{answer.name}</span>
+                    </div>
                 ))}
-            </ul>
+            </div>
           </div>
+
           {message && <div className="message">{message}</div>}
           {isGameOver && (
             <button onClick={startGame}>もう一度プレイ</button>
