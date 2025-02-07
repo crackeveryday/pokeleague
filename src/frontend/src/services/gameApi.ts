@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { SubmitResponse } from '../types/types';
 
-const BASE_URL = 'http://127.0.0.1:5000/api';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const gameApi = {
   startGame: async () => {
+    console.log('API URL:', import.meta.env.VITE_API_URL);
     const response = await axios.get(`${BASE_URL}/game/start`);
+    console.log('Response:', response);
     return response.data;
   },
 
