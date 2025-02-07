@@ -51,7 +51,9 @@ class QuizService:
                     break
 
             if is_correct:
-                game.add_answer(pokemon_name)
+                pokemon_name_en = self.name_converter.convert_to_english(pokemon_name)
+                image_url = self.pokemon_service.get_pokemon_sprite(pokemon_name_en)
+                game.add_answer(pokemon_name, image_url)
 
             game_status = game.check_game_status()
             
@@ -59,7 +61,8 @@ class QuizService:
                 "status": game_status,
                 "correct": is_correct,
                 "answers_count": len(game.user_answers),
-                "user_answers": game.user_answers
+                "user_answers": game.user_answers,
+                "images": game.images
             }
 
             if game_status != "ongoing":

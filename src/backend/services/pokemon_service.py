@@ -19,3 +19,12 @@ class PokemonService:
         except requests.RequestException as e:
             print(f"API error: {e}")
             return []
+
+    def get_pokemon_sprite(self, pokemon_name):
+        """ポケモンの画像URLを取得"""
+        try:
+            response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{pokemon_name}")
+            response.raise_for_status()
+            return response.json()['sprites']['front_default']
+        except:
+            return None

@@ -32,23 +32,30 @@ const Game: React.FC = () => {
     if (!gameState || isGameOver) return;
 
     try {
-      const response = await gameApi.submitAnswer(gameState.gameId, answer);
-      
-      if (response.correct) {
-        setGameState(prev => ({
-          ...prev!,
-          answers: response.user_answers
-        }));
-      }
+        const response = await gameApi.submitAnswer(gameState.gameId, answer);
+        
+        if (response.correct) {
+            // スプライトURLを含む新しい回答配列を作成
+            const updatedAnswers = response.user_answers.map(answer => ({
+                name: answer,
+                image: response.images?.[answer]
+            }));
 
-      if (response.status === 'clear') {
-        setIsGameOver(true);
-        setMessage('クリア！おめでとうございます！');
-      }
+            setGameState(prev => ({
+                ...prev!,
+                answers: updatedAnswers
+            }));
+        }
+
+        if (response.status === 'clear') {
+            setIsGameOver(true);
+            setMessage('クリア！おめでとうございます！');
+        }
     } catch (error) {
-      console.error('Error submitting answer:', error);
+        console.error('Error submitting answer:', error);
     }
   };
+
 
   return (
     <div className="game-container">
@@ -68,12 +75,22 @@ const Game: React.FC = () => {
           />
           <div className="answers-list">
             <h3>正解したポケモン ({gameState.answers.length}/5):</h3>
-            <ul>
-              {gameState.answers.map((answer, index) => (
-                <li key={index}>{answer}</li>
-              ))}
-            </ul>
+            <div className="pokemon-grid">
+                {gameState.answers.map((answer, index) => (
+                    <div key={index} className="pokemon-card">
+                        {answer.image && (
+                            <img 
+                                src={answer.image} 
+                                alt={answer.name}
+                                className="pokemon-image"
+                            />
+                        )}
+                        <span className="pokemon-name">{answer.name}</span>
+                    </div>
+                ))}
+            </div>
           </div>
+
           {message && <div className="message">{message}</div>}
           {isGameOver && (
             <button onClick={startGame}>もう一度プレイ</button>
