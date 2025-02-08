@@ -16,8 +16,10 @@ en_ja_dict = {}
 
 for pokemon in all_pokemon:
     url = base_url + pokemon
-    jp_name = requests.get(url).json()['names'][0]['name']
-    en_ja_dict[pokemon] = jp_name
+    response = requests.get(url).json()
+    jp_name = response['names'][0]['name']
+    en_default_name = response['varieties'][0]['pokemon']['name']
+    en_ja_dict[en_default_name] = jp_name
     time.sleep(0.1)
 
 # test_all_pokemon = ['bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard', 'squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree', 'weedle', 'kakuna', 'beedrill', 'pidgey', 'pidgeotto', 'pidgeot', 'rattata', 'raticate', 'spearow', 'fearow', 'ekans', 'arbok', 'pikachu', 'raichu', 'sandshrew', 'sandslash', 'nidoran-f', 'nidorina']
