@@ -1,0 +1,77 @@
+.timer-container {
+  position: relative;
+  display: inline-block;
+  margin: 30px 0;
+  animation: scaleIn 0.6s ease-out;
+}
+
+.timer-svg {
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 8px 24px rgba(59, 130, 246, 0.4));
+}
+
+.timer-circle-bg {
+  fill: none;
+  stroke: rgba(59, 130, 246, 0.1);
+  stroke-width: 8;
+}
+
+.timer-circle-progress {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.timer-number {
+  font-size: 48px;
+  font-weight: 800;
+  color: #f1f5f9;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.timer-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@keyframes timerPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.timer-container:hover {
+  animation: timerPulse 0.6s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .timer-svg {
+    width: 140px;
+    height: 140px;
+  }
+
+  .timer-number {
+    font-size: 36px;
+  }
+
+  .timer-label {
+    font-size: 12px;
+  }
+}
