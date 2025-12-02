@@ -85,16 +85,11 @@ const Game: React.FC = () => {
           </div>
 
           <Timer
+            key={gameState.gameId}
             initialTime={60}
             onTimeout={handleTimeout}
             isActive={gameState.isGameActive && !isGameOver}
           />
-
-          {!isGameOver && (
-            <button className="give-up-button" onClick={handleGiveUpClick}>
-              <span className="button-icon">✕</span> 諦めて次へ
-            </button>
-          )}
 
           <AnswerForm
             onSubmit={handleSubmit}
@@ -126,6 +121,12 @@ const Game: React.FC = () => {
             <div className={`message ${isGameOver ? 'message-gameover' : ''}`}>
               {message}
             </div>
+          )}
+
+          {!isGameOver && (
+            <button className="give-up-button" onClick={handleGiveUpClick}>
+              <span className="button-icon">✕</span> 諦めて次へ
+            </button>
           )}
 
           {isGameOver && (
