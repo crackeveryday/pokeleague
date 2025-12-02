@@ -60,27 +60,46 @@ const Game: React.FC = () => {
   return (
     <div className="game-container">
       {!gameState ? (
-        <button onClick={startGame}>ゲームスタート</button>
+        <div className="start-screen">
+          <div className="start-content">
+            <p className="start-description">技名からポケモンを当てるクイズゲーム！<br />制限時間は60秒、5匹答えてクリアを目指そう！</p>
+            <button className="start-button" onClick={startGame}>
+              <span className="button-icon">▶</span> ゲームスタート
+            </button>
+          </div>
+        </div>
       ) : (
         <>
-          <h2>技「{gameState.moveName}」を覚えるポケモンを5匹答えよ！</h2>
-          <Timer 
-            initialTime={60} 
-            onTimeout={handleTimeout} 
-            isActive={gameState.isGameActive && !isGameOver} 
+          <div className="question-section">
+            <h2 className="question-title">
+              <span className="question-label">お題</span>
+              <span className="move-name">「{gameState.moveName}」</span>
+              を覚えるポケモンを5匹答えよ！
+            </h2>
+          </div>
+
+          <Timer
+            initialTime={60}
+            onTimeout={handleTimeout}
+            isActive={gameState.isGameActive && !isGameOver}
           />
-          <AnswerForm 
-            onSubmit={handleSubmit} 
-            disabled={isGameOver} 
+
+          <AnswerForm
+            onSubmit={handleSubmit}
+            disabled={isGameOver}
           />
+
           <div className="answers-list">
-            <h3>正解したポケモン ({gameState.answers.length}/5):</h3>
+            <h3 className="answers-title">
+              正解したポケモン
+              <span className="progress-badge">{gameState.answers.length}/5</span>
+            </h3>
             <div className="pokemon-grid">
                 {gameState.answers.map((answer, index) => (
                     <div key={index} className="pokemon-card">
                         {answer.image && (
-                            <img 
-                                src={answer.image} 
+                            <img
+                                src={answer.image}
                                 alt={answer.name}
                                 className="pokemon-image"
                             />
@@ -91,9 +110,16 @@ const Game: React.FC = () => {
             </div>
           </div>
 
-          {message && <div className="message">{message}</div>}
+          {message && (
+            <div className={`message ${isGameOver ? 'message-gameover' : ''}`}>
+              {message}
+            </div>
+          )}
+
           {isGameOver && (
-            <button onClick={startGame}>もう一度プレイ</button>
+            <button className="restart-button" onClick={startGame}>
+              <span className="button-icon">🔄</span> もう一度プレイ
+            </button>
           )}
         </>
       )}
