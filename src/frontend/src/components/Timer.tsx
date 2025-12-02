@@ -46,7 +46,7 @@ const Timer: React.FC<TimerProps> = ({ initialTime, onTimeout, isActive }) => {
 
   return (
     <div className="timer-container">
-      <svg className="timer-svg" width="180" height="180">
+      <svg className="timer-svg" width="180" height="180" viewBox="0 0 180 180">
         <circle
           className="timer-circle-bg"
           cx="90"
