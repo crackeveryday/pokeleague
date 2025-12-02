@@ -2,9 +2,16 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from services.quiz_service import QuizService
 from models.game import Game
+import os
 
 app = Flask(__name__)
-CORS(app)
+
+allowed_origins = os.environ.get(
+    'ALLOWED_ORIGINS',
+    'https://crackeveryday.github.io'
+).split(',')
+CORS(app, origins=allowed_origins)
+
 quiz_service = QuizService()
 
 @app.route('/api/game/start', methods=['GET', 'POST'])  # GETメソッドも許可
