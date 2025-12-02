@@ -15,10 +15,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    build:
-      context: ./frontend
-      args:
-        - NODE_ENV=production
+    build: ./frontend
     environment:
       - VITE_API_URL=/api
       - NODE_ENV=production
