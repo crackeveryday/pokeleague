@@ -23,6 +23,12 @@ const Game: React.FC = () => {
     setMessage('');
   };
 
+  const handleGiveUpClick = () => {
+    if (window.confirm('本当に諦めますか？新しい問題を始めます。')) {
+      startGame();
+    }
+  };
+
   const handleTimeout = () => {
     setIsGameOver(true);
     setMessage('時間切れ！');
@@ -83,6 +89,12 @@ const Game: React.FC = () => {
             onTimeout={handleTimeout}
             isActive={gameState.isGameActive && !isGameOver}
           />
+
+          {!isGameOver && (
+            <button className="give-up-button" onClick={handleGiveUpClick}>
+              <span className="button-icon">✕</span> 諦めて次へ
+            </button>
+          )}
 
           <AnswerForm
             onSubmit={handleSubmit}
