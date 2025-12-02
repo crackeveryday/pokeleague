@@ -1,33 +1,44 @@
-version: '3'
+version: '3.8'
 
 services:
-  frontend:
-    build: ./frontend
+  nginx:
+    build: ./nginx
     ports:
-      - "3000:3000"
+      - "80:80"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    environment:
-      - VITE_API_URL=http://localhost:5000/api
-      - NODE_ENV=development
+      - frontend-dist:/usr/share/nginx/html:ro
+    depends_on:
+      - frontend
+      - backend
     networks:
       - pokeleague
-    command: npm run dev -- --host
+    restart: unless-stopped
 
+  frontend:
+    build: ./frontend
+    environment:
+      - VITE_API_URL=/api
+      - NODE_ENV=production
+    volumes:
+      - frontend-dist:/app/dist
+    networks:
+      - pokeleague
+    command: sh -c "npm run build && tail -f /dev/null"
 
   backend:
     build: ./backend
-    ports:
-      - "5000:5000"
     volumes:
-      - ./backend:/app
       - ../data:/app/data
     environment:
-      - ALLOWED_ORIGINS=http://localhost:3000,https://crackeveryday.github.io
+      - ALLOWED_ORIGINS=http://13.231.117.177
+      - FLASK_ENV=production
     networks:
       - pokeleague
+    restart: unless-stopped
 
 networks:
   pokeleague:
     driver: bridge
+
+volumes:
+  frontend-dist:
